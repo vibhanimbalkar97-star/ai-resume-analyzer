@@ -42,7 +42,7 @@ const registerUserController = asyncHandler(async (req, res) => {
       username: user.username,
     },
     process.env.JWT_SECRET,
-    { expiresIn: "1d" });
+    { expiresIn: "24h" });
 
   res.cookie("token", token);
 
@@ -56,48 +56,51 @@ const registerUserController = asyncHandler(async (req, res) => {
   });
 });
 
-/** 
+/**
  * @name loginUserController
- * @desc login user expects email password from req.body
+ * @desc login a user, expects email password in req.body
  * @access Public
- * */ 
-const loginUserController = asyncHandler(async(req, res) => {
-    const { email, password } = req.body
+ * */
+const loginUserController = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
 
-    if (!email || !password){
-        res.status(400)
-        throw new Error("Please provide email and password to login")
-    }
+  if (!email || !password) {
+    res.status(400);
+    throw new Error("Please provide email and password to login");
+  }
 
-    const user = await userModel.findOne({ email })
-    
-    if(!user){
-        res.status(400)
-        throw new Error("Invalid email or password")
-    }
+  const user = await userModel.findOne({ email });
 
-    const isValidPassword = await bcrypt.compare(password, user.password)
-    if(!isValidPassword){
-        res.status(400)
-        throw new Error("Invalid email or password")
-    }
+  if (!user) {
+    res.status(400);
+    throw new Error("Invalid email or password");
+  }
 
-    const token = jwt.sign({
-        id:user._id, username:user.username
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) {
+    res.status(400);
+    throw new Error("Invalid email or password");
+  }
+
+  const token = jwt.sign(
+    {
+      id: user._id,
+      username: user.username,
     },
     process.env.JWT_SECRET,
-{
-    expiresIn:"1d"
-})
+    {
+      expiresIn: "24h",
+    },
+  );
 
-res.cookie("token", token)
+  res.cookie("token", token);
 
-res.status(201).json({
-    "message": "user logged in Successfully",
+  res.status(200).json({
+    message: "User loggedIn Successfully",
     user: {
-        id: user._id,
-        username:user.username,
-        email: user.email
-    }
-})
-})
+      id: user._id,
+      username: user.username,
+      email: user.email,
+    },
+  });
+});
