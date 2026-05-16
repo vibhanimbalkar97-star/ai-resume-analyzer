@@ -2,7 +2,7 @@ const userModel = require("../models/user.model.js");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
+const redisClient = require("../config/redis.js");
 /**
  * @name registerUserController
  * @desc register a new user, expects username, email, password in the request body
@@ -42,7 +42,9 @@ const registerUserController = asyncHandler(async (req, res) => {
       username: user.username,
     },
     process.env.JWT_SECRET,
-    { expiresIn: "24h" });
+    {
+      expiresIn: "24h",
+    });
 
   res.cookie("token", token);
 
@@ -104,3 +106,32 @@ const loginUserController = asyncHandler(async (req, res) => {
     },
   });
 });
+
+/**
+ * @name logoutUserController
+ * @desc clear token from user cookie and add the token in blacklist
+ * @access public
+ */
+const logoutUserController = asyncHandler(async (req, res) => {
+  const token = req.cookies.token || req.headers.authorization.split(" ")[1];
+
+  if (!token) {
+  res.status(401);
+  throw new Error("Unauthorized");
+}
+
+  // set in blacklist
+  await redisClient.set(token, "logout", "EX", 60 * 60 * 24);
+
+  res.status(200).json({
+    message: "Logged out Successfully",
+  });
+});
+
+const authController = {
+  registerUserController,
+  loginUserController,
+  logoutUserController,
+};
+
+module.exports = authController;
