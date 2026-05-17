@@ -124,7 +124,7 @@ const logoutUserController = asyncHandler(async (req, res) => {
   await redisClient.set(token, "logout", "EX", 60 * 60 * 24);
 
   res.status(200).json({
-    message: "Logged out Successfully",
+    message: "User Logged out Successfully",
   });
 });
 
