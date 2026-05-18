@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import '../auth.form.scss';
 
 const Login = () => {
@@ -16,7 +17,7 @@ const Login = () => {
             type="email" 
             name="email"
             id="email"
-            placeholder="Enter Email"
+            placeholder="Enter email address"
             />
           </div>
           <div className="input-group">
@@ -25,11 +26,12 @@ const Login = () => {
             type="password"
             id="password"
             name="password"
-            placeholder="Enter Password"
+            placeholder="Enter password"
             />
           </div>
           <button className="button primary-button">Login</button>
         </form>
+        <p>Don't have an account? <Link to={"/register"}>Register</Link></p>
       </div>
     </main>
   )
