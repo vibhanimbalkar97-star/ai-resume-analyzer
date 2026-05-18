@@ -116,9 +116,9 @@ const logoutUserController = asyncHandler(async (req, res) => {
   const token = req.cookies.token || req.headers.authorization.split(" ")[1];
 
   if (!token) {
-  res.status(401);
-  throw new Error("Unauthorized");
-}
+    res.status(401);
+    throw new Error("Unauthorized");
+  }
 
   // set in blacklist
   await redisClient.set(token, "logout", "EX", 60 * 60 * 24);
@@ -128,10 +128,33 @@ const logoutUserController = asyncHandler(async (req, res) => {
   });
 });
 
+/**
+ * @name getMeController
+ * @desc get the current logged in user details
+ * @access private
+ */
+const getMeController = asyncHandler(async (req, res) => {
+  const user = await userModel.findById(req.user.id);
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  res.status(200).json({
+    message: "User details ftched successfully",
+    user: {
+      id: user._id,
+      username: user.username,
+      email: user.email,
+    },
+  });
+});
+
 const authController = {
   registerUserController,
   loginUserController,
   logoutUserController,
+  getMeController
 };
 
 module.exports = authController;
