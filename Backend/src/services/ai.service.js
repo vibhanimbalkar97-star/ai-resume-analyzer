@@ -100,7 +100,7 @@ const generateInterviewreport = async ({
 
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash",
-    contents: "",
+    contents: "prompt",
     config: {
       responseMimeType: "application/json",
       responseSchema: zodToJsonSchema(interviewReportSchema),
@@ -110,6 +110,4 @@ const generateInterviewreport = async ({
   return JSON.parse(response.text);
 };
 
-module.exports = {
-  generateInterviewreport,
-};
+module.exports = generateInterviewreport

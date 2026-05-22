@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 const authRouter = require("./routes/auth.route.js")
+const interviewRouter = require("./routes/interview.route.js")
+
 const errorHandler = require('./middlewares/error.middleware.js')
 const cookieParser = require('cookie-parser')
 const cors = require("cors")
@@ -14,6 +16,8 @@ app.use(cors({
 
 /* using all the routes here */
 app.use("/api/auth", authRouter)
+app.use("/api/interview", interviewRouter)
+
 
 app.use(errorHandler)
 
