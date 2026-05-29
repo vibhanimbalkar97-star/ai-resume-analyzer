@@ -113,7 +113,7 @@ const loginUserController = asyncHandler(async (req, res) => {
  * @access public
  */
 const logoutUserController = asyncHandler(async (req, res) => {
-  const token = req.cookies.token || req.headers.authorization.split(" ")[1];
+  const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
 
   if (!token) {
     res.status(401);
