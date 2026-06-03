@@ -22,7 +22,7 @@ interviewRouter.post(
  * @desc get interview report by interviewId.
  * @access private
  */
-interviewRouter.get("/report/:interviewId", authUser, generateInterviewReportController)
+interviewRouter.get("/report/:interviewId", authUser, getInterviewReportByIdController)
 
 /**
  * @route GET /api/interview/

@@ -151,8 +151,9 @@ IMPORTANT RULES:
 2. behavioralQuestions MUST contain EXACTLY 3 objects
 3. skillGaps MUST contain EXACTLY 3 objects
 4. preparationPlan MUST contain EXACTLY 7 objects
+5. title MUST be a string
 
-5. Use ONLY these keys.
+6. Use ONLY these keys.
 
 technicalQuestions object:
 {
@@ -232,7 +233,7 @@ answer cannot be empty.
 
       try {
         result = JSON.parse(response.text);
-        console.log("AI RESULT", result);
+        // console.log("AI RESULT", result);
       } catch {
         throw new Error("Invalid JSON returned by AI");
       }
@@ -241,13 +242,13 @@ if (parsed.success) {
   return parsed.data;
 }
 
-console.log(parsed.error.flatten());
+// console.log(parsed.error.flatten());
 
 throw new Error("Schema validation failed");
     } catch (err) {
       lastError = err;
 
-      console.log(`Retry ${i + 1}:`, err.message);
+      // console.log(`Retry ${i + 1}:`, err.message);
     }
   }
 
