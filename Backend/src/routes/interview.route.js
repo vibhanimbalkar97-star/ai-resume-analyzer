@@ -30,4 +30,5 @@ interviewRouter.get("/report/:interviewId", authUser, generateInterviewReportCon
  * @access private
  */
 interviewRouter.get("/", authUser, getAllInterviewReportsControllers)
+
 module.exports = interviewRouter;
