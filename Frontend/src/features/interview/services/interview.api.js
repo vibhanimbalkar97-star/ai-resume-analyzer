@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "http://localhost:5000",
   withCredentials: true,
 });
 
@@ -20,7 +20,7 @@ export const generateInterviewReport = async ({
   formData.append("selfDescription", selfDescription);
   formData.append("resume", resumeFile);
 
-  const response = await api.post("api/interview/", formData);
+  const response = await api.post("/api/interview/", formData);
   return response.data;
 };
 
@@ -28,7 +28,7 @@ export const generateInterviewReport = async ({
  * @description Service to get interview report by interviewId.
  */
 export const getInterviewReportById = async (interviewId) => {
-  const response = api.get(`api/interview/report/${interviewId}`);
+  const response = api.get(`/api/interview/report/${interviewId}`);
 
   return response.data;
 };
@@ -37,6 +37,6 @@ export const getInterviewReportById = async (interviewId) => {
  * @description Service to get all interview reports of logged in user.
  */
 export const getAllInterviewReports = async () => {
-  const response = await api.get("api/interview/");
+  const response = await api.get("/api/interview/");
   return response.data;
 };
