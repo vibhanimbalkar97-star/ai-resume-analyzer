@@ -28,6 +28,7 @@ export const useInterview = () => {
   }) => {
     setLoading(true);
     let response = null;
+    console.log("API response:", response);
     try {
        response = await generateInterviewReport({
         jobDescription,
@@ -63,6 +64,7 @@ export const useInterview = () => {
     try {
        response = await getAllInterviewReports();
        setReports(response.interviewReports)
+       console.log("Reports data:", response.interviewReports);
     } catch (err) {
       console.log(err);
     } finally {
@@ -70,6 +72,7 @@ export const useInterview = () => {
     }
      return response.interviewReports
   };
+  
 
   useEffect(() => {
     if(interviewId){
