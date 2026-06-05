@@ -154,7 +154,7 @@ const authController = {
   registerUserController,
   loginUserController,
   logoutUserController,
-  getMeController
+  getMeController,
 };
 
 module.exports = authController;

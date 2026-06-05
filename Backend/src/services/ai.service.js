@@ -120,7 +120,11 @@ const interviewReportSchema = z
       .describe(
         "A day-wise preparation plan for the candidate to follow in order to prepare for the interview effectively",
       ),
-      title: z.string().describe("The title of the job for which the interview report is generated"),
+    title: z
+      .string()
+      .describe(
+        "The title of the job for which the interview report is generated",
+      ),
   })
   .strict();
 
@@ -238,17 +242,13 @@ answer cannot be empty.
         throw new Error("Invalid JSON returned by AI");
       }
       const parsed = interviewReportSchema.safeParse(result);
-if (parsed.success) {
-  return parsed.data;
-}
+      if (parsed.success) {
+        return parsed.data;
+      }
 
-// console.log(parsed.error.flatten());
-
-throw new Error("Schema validation failed");
+      throw new Error("Schema validation failed");
     } catch (err) {
       lastError = err;
-
-      // console.log(`Retry ${i + 1}:`, err.message);
     }
   }
 
