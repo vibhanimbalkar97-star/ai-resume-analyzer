@@ -35,7 +35,7 @@ $severity-low: #3fb950;
 .interview-layout {
     display: flex;
     width: 100%;
-    max-width: 1280px;
+    max-width: 1200px;
     margin: 0 auto;
     background-color: $bg-card;
     border: 1px solid $border-color;
@@ -119,6 +119,7 @@ $severity-low: #3fb950;
     max-height: calc(100vh - 3rem);
     padding-bottom: 5rem;
     align-items: flex-start;
+     min-width: 0;
 
 
 
@@ -476,4 +477,116 @@ $severity-low: #3fb950;
         background-color: rgba($severity-low, 0.1);
         border-color: rgba($severity-low, 0.25);
     }
+}
+
+/* ==========================
+   Tablet
+========================== */
+@media (max-width: 992px) {
+  .interview-layout {
+    flex-direction: column;
+  }
+
+  .interview-divider {
+    display: none;
+  }
+
+  .interview-nav {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .interview-sidebar {
+    width: 100%;
+    border-top: 1px solid $border-color;
+  }
+
+  .interview-content {
+    max-height: none;
+    padding: 1.5rem;
+  }
+}
+
+/* ==========================
+   Mobile
+========================== */
+@media (max-width: 768px) {
+  .interview-page {
+    padding: 0.75rem;
+  }
+
+  .interview-nav {
+    &__item {
+      font-size: 0.8rem;
+    }
+  }
+
+  .content-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .q-card {
+    &__header {
+      padding: 0.75rem;
+    }
+
+    &__question {
+      font-size: 0.85rem;
+    }
+  }
+
+  .roadmap-day {
+    padding-left: 2.5rem;
+
+    &::before {
+      left: 12px;
+    }
+  }
+
+  .roadmap-list::before {
+    left: 18px;
+  }
+
+  .match-score__ring {
+    width: 75px;
+    height: 75px;
+  }
+}
+
+/* ==========================
+   Small Mobile
+========================== */
+@media (max-width: 480px) {
+  .interview-content {
+    padding: 1rem;
+  }
+
+  .interview-nav {
+    padding: 0.75rem;
+
+    .nav-content {
+      display: flex;
+      overflow-x: auto;
+      gap: 0.5rem;
+    }
+
+    &__item {
+      white-space: nowrap;
+      min-width: fit-content;
+    }
+  }
+
+  .interview-sidebar {
+    padding: 1rem;
+  }
+
+  .match-score__value {
+    font-size: 1.25rem;
+  }
+
+  .roadmap-day__focus {
+    font-size: 0.85rem;
+  }
 }

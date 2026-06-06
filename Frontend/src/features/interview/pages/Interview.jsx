@@ -53,7 +53,7 @@ const RoadMapDay = ({ day }) => (
 const Interview = () => {
     
 const [ activeNav, setActiveNav ] = useState('technical')
-const { report, getReportById, loading, getResumePdf } = useInterview()
+const { report, getReportById, loading } = useInterview()
 const { interviewId } = useParams()
 
     const NAV_ITEMS = [
